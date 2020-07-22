@@ -1,0 +1,24 @@
+<textarea id="currentnote" style="width: 100%; height: 50em; font-family:DejaVu Sans Mono, monospace;color:#A9F5E1; background-color:#151515;" wrap="soft | hard" spellcheck="false">
+</textarea>
+
+
+<script> 
+		
+		var ws = new WebSocket("ws://127.0.0.1:5678/")
+
+		var input = document.getElementById('currentnote');
+
+		input.onkeypress = func;
+		
+		function func(e) {
+			key = String.fromCharCode(e.keyCode);
+			ws.send(JSON.stringify(key));		
+		}
+			
+		
+		 ws.onmessage = function (event) {
+		document.getElementById("currentnote").value += JSON.parse(event.data);
+		}
+
+		
+</script>	
